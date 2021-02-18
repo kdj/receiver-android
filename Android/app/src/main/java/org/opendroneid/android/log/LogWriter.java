@@ -81,10 +81,11 @@ public class LogWriter {
         });
     }
 
-    public void logBluetooth(int callbackType, ScanResult result, StringBuilder csvLog) {
+    public void logBluetooth(int callbackType, ScanResult result, String transportType, StringBuilder csvLog) {
         LogEntry entry = new LogEntry();
         entry.session = session;
         entry.timestamp = result.getTimestampNanos();
+        entry.transportType = transportType;
         entry.macAddress = result.getDevice().getAddress();
         entry.callbackType = callbackType;
         entry.rssi = result.getRssi();
@@ -94,10 +95,11 @@ public class LogWriter {
         logQueue.add(entry.toString());
     }
 
-    public void logNaN(Long timeNano, int peerHash, byte[] serviceSpecificInfo, StringBuilder csvLog) {
+    public void logNaN(Long timeNano, int peerHash, byte[] serviceSpecificInfo, String transportType, StringBuilder csvLog) {
         LogEntry entry = new LogEntry();
         entry.session = session;
         entry.timestamp = timeNano;
+        entry.transportType = transportType;
         entry.macAddress = Integer.toString(peerHash);
         entry.callbackType = 0;
         entry.rssi = 0;
